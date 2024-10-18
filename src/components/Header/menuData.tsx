@@ -15,13 +15,13 @@ const menuData: Menu[] = [
   },
   {
     id: 33,
-    title: "Tokenize Asset",
+    title: "Repay loan",
     path: "/blog",
     newTab: false,
   },
   {
     id: 3,
-    title: "Repay loan",
+    title: "Tokenize Asset",
     path: "/contact",
     newTab: false,
   },
