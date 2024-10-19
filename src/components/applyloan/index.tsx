@@ -1,5 +1,5 @@
-"use client"
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
 
 const ApplyLoan = () => {
@@ -8,12 +8,26 @@ const ApplyLoan = () => {
   const [selectedAsset, setSelectedAsset] = useState("");
   const [loanPurpose, setLoanPurpose] = useState("");
   const [showSummary, setShowSummary] = useState(false);
+  const [tokenizedAssets, setTokenizedAssets] = useState([]);
 
-  const tokenizedAssets = [
-    { id: 1, name: "Luxury Apartment", type: "Real Estate", value: "$250,000", ipfsLink: "#" },
-    { id: 2, name: "Rare Artwork", type: "Art", value: "$100,000", ipfsLink: "#" },
-    { id: 3, name: "Vintage Car", type: "Collectible", value: "$75,000", ipfsLink: "#" }
-  ];
+  // Fetch assets from backend
+  useEffect(() => {
+    const fetchAssets = async () => {
+      try {
+        // Fetch the tokenized assets from your backend API
+        const response = await fetch("/api/getAssets");
+        if (!response.ok) {
+          throw new Error("Failed to fetch tokenized assets.");
+        }
+        const data = await response.json();
+        setTokenizedAssets(data); // Set the fetched assets
+      } catch (error) {
+        console.error("Error fetching assets:", error);
+      }
+    };
+
+    fetchAssets();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,16 +55,20 @@ const ApplyLoan = () => {
           <form onSubmit={handleSubmit}>
             {/* Select Asset */}
             <div className="mb-6">
-              <label className="block mb-2 font-semibold">Select Tokenized Asset</label>
+              <label className="block mb-2 font-semibold">
+                Select Tokenized Asset
+              </label>
               <select
                 className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white"
                 value={selectedAsset}
                 onChange={(e) => setSelectedAsset(e.target.value)}
               >
-                <option value="" disabled>Select an asset...</option>
+                <option value="" disabled>
+                  Select an asset...
+                </option>
                 {tokenizedAssets.map((asset) => (
-                  <option key={asset.id} value={asset.name}>
-                    {asset.name} - {asset.value}
+                  <option key={asset.assetName} value={asset.assetName}>
+                    {asset.assetName} - {asset.tokenValue}
                   </option>
                 ))}
               </select>
@@ -58,7 +76,9 @@ const ApplyLoan = () => {
 
             {/* Loan Amount */}
             <div className="mb-6">
-              <label className="block mb-2 font-semibold">Desired Loan Amount</label>
+              <label className="block mb-2 font-semibold">
+                Desired Loan Amount
+              </label>
               <input
                 type="number"
                 className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white"
@@ -76,7 +96,9 @@ const ApplyLoan = () => {
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
               >
-                <option value="" disabled>Select duration...</option>
+                <option value="" disabled>
+                  Select duration...
+                </option>
                 <option value="3 months">3 months</option>
                 <option value="6 months">6 months</option>
                 <option value="1 year">1 year</option>
@@ -126,9 +148,7 @@ const ApplyLoan = () => {
             </p>
 
             <div className="text-center mt-6">
-              <button
-                className="px-8 py-3 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg hover:shadow-xl hover:from-teal-500 hover:to-green-500 transition duration-300"
-              >
+              <button className="px-8 py-3 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg hover:shadow-xl hover:from-teal-500 hover:to-green-500 transition duration-300">
                 Confirm & Apply
               </button>
             </div>
