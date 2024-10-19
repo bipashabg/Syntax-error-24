@@ -27,7 +27,7 @@ const RepayLoan = () => {
 
         {/* Loan Summary */}
         <div className="mb-12">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 transition-transform hover:scale-105 duration-300">
+          <div className="bg-white dark:bg-gray-dark rounded-lg shadow-xl p-6 transition-transform hover:scale-105 duration-300">
             <h3 className="text-xl font-bold mb-4 text-primary">Loan Summary</h3>
             <ul className="text-gray-600 dark:text-gray-300">
               <li className="mb-2"><strong>Loan Amount:</strong> $10,000</li>

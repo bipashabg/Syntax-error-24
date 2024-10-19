@@ -48,22 +48,24 @@ const Header = () => {
 
   const usePathName = usePathname();
 
-  // Connect to Wallet Handler
   const connectWalletHandler = async () => {
+    console.log('hello');
     try {
       if (typeof window.ethereum !== "undefined") {
         const provider = new ethers.BrowserProvider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const address = await (await signer).getAddress();
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
         setWalletAddress(address);
       } else {
         setErrorMessage("Please install MetaMask!");
       }
     } catch (error) {
+      console.error("Failed to connect wallet:", error);
       setErrorMessage("Failed to connect wallet. Try again.");
     }
   };
+  
 
   return (
     <>
@@ -195,7 +197,7 @@ const Header = () => {
                     </Link> */}
                     <button
                       onClick={connectWalletHandler}
-                      className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-md bg-primary py-3 px-7 text-base font-medium text-white transition"
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-md bg-[#AF8BAF] py-3 px-7 text-base font-medium text-white transition "
                     >
                       Connect Wallet
                     </button>
