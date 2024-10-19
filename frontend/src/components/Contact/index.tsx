@@ -1,11 +1,14 @@
 
+
 import NewsLatterBox from "./NewsLatterBox";
 
 const Contact = () => {
   return (
     <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28 ">
-      <div className="container flex justify-center items-center h-screen "> {/* Centering using Flexbox */}
-        <div className="-mx-4 flex flex-wrap justify-center "> {/* Added justify-center to ensure the content inside is centered */}
+      <div className="container flex justify-center items-center h-screen ">
+        {/* Centering using Flexbox */}
+        <div className="-mx-4 flex flex-wrap justify-center ">
+          {/* Added justify-center to ensure the content inside is centered */}
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12 ">
             <div
               className="mb-12 mt-7 rounded-sm bg-white px-8 py-11 shadow-three dark:bg-gray-dark sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]"
@@ -31,7 +34,7 @@ const Contact = () => {
                       <input
                         type="text"
                         placeholder="Enter asset name"
-                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-white outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-white dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
                   </div>
@@ -47,7 +50,7 @@ const Contact = () => {
                       <input
                         type="file"
                         accept="image/*" // Adjust this as needed for other file types
-                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-white outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-white dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
                       <p className="text-xs text-gray-500">
                         Max file size: 5MB. Allowed types: JPG, PNG.
@@ -66,7 +69,7 @@ const Contact = () => {
                       <input
                         type="number"
                         placeholder="Enter asset token value"
-                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-white outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-white dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
                   </div>
@@ -81,7 +84,7 @@ const Contact = () => {
                       </label>
                       <select
                         id="category"
-                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-white outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-white dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       >
                         <option value="">Select a category</option>
                         <option value="real-estate">Real Estate</option>
@@ -105,7 +108,7 @@ const Contact = () => {
                         name="message"
                         rows={5}
                         placeholder="Enter additional information (optional)"
-                        className="border-stroke w-full resize-none rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full resize-none rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-white outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-white dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       ></textarea>
                     </div>
                   </div>
@@ -128,4 +131,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

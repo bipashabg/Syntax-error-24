@@ -197,7 +197,7 @@ const Header = () => {
                     </Link> */}
                     <button
                       onClick={connectWalletHandler}
-                      className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-md bg-[#AF8BAF] py-3 px-7 text-base font-medium text-white transition "
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-md bg-[#DC92EF] py-3 px-7 text-base font-medium text-white transition "
                     >
                       Connect Wallet
                     </button>
