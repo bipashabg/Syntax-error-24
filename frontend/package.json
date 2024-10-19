@@ -1,0 +1,37 @@
+{
+  "name": "startup-nextjs-template",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@maticnetwork/maticjs": "^3.9.2",
+    "@truffle/hdwallet-provider": "^2.1.15",
+    "@web3-react/core": "^8.2.3",
+    "@web3-react/injected-connector": "^6.0.7",
+    "caniuse-lite": "^1.0.30001669",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.1.0",
+    "ethers": "^6.13.4",
+    "next": "^14.1.0",
+    "next-themes": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-modal-video": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "@types/react": "^18.2.33",
+    "autoprefixer": "^10.4.17",
+    "hardhat": "^2.22.13",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.6.3"
+  }
+}
