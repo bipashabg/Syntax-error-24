@@ -26,8 +26,9 @@ const menuData: Menu[] = [
     newTab: false,
   },
   {
-    id: 4,
+    id: 3,
     title: "Apply for loan",
+    path:'/applyloan',
     newTab: false,
     
   },

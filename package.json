@@ -9,16 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lighthouse-web3/sdk": "^0.3.7",
     "@maticnetwork/maticjs": "^3.9.2",
     "@truffle/hdwallet-provider": "^2.1.15",
     "@web3-react/core": "^8.2.3",
     "@web3-react/injected-connector": "^6.0.7",
+    "axios": "^1.7.7",
     "caniuse-lite": "^1.0.30001669",
+    "dotenv": "^16.4.5",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.1.0",
     "ethers": "^6.13.4",
+    "express": "^4.21.1",
+    "lighthouse": "^12.2.1",
     "next": "^14.1.0",
     "next-themes": "^0.2.1",
+    "node-fetch": "^3.3.2",
+    "pinata-web3": "^0.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal-video": "^2.0.1"

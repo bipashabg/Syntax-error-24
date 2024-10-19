@@ -1,6 +1,8 @@
 "use client";
 
+import lighthouse from "lighthouse";
 import { useTheme } from "next-themes";
+import { useState } from "react";
 
 const NewsLatterBox = () => {
   const { theme } = useTheme();

@@ -7,8 +7,6 @@ import menuData from "./menuData";
 import { ethers } from "ethers";
 import { InjectedConnector } from "@web3-react/injected-connector";
 
-// ...
-
 const injected = new InjectedConnector({
   supportedChainIds: [137, 80001], // Polygon Mainnet and Mumbai Testnet
 });
@@ -34,7 +32,7 @@ const Header = () => {
   };
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
-  });
+  }, []);
 
   // submenu handler
   const [openIndex, setOpenIndex] = useState(-1);
@@ -64,6 +62,39 @@ const Header = () => {
       setErrorMessage("Failed to connect wallet. Try again.");
     }
   };
+
+  // Disconnect Wallet Handler
+  const disconnectWalletHandler = () => {
+    setWalletAddress("");
+    setErrorMessage(""); // Clear any error message if needed
+  };
+
+  // Get current wallet connected
+  const getCurrentWalletConnected = async () => {
+    if (window.ethereum) {
+      try {
+        const addressArray = await window.ethereum.request({
+          method: "eth_accounts",
+        });
+        if (addressArray.length > 0) {
+          setWalletAddress(addressArray[0]);
+        } else {
+          setErrorMessage("🦊 Connect to Metamask using the top right button.");
+        }
+      } catch (err) {
+        setErrorMessage("😥 " + err.message);
+      }
+    } else {
+      setErrorMessage(
+        "🦊 You must install Metamask, a virtual Ethereum wallet, in your browser. " +
+        "You can download it from: https://metamask.io/download.html"
+      );
+    }
+  };
+
+  useEffect(() => {
+    getCurrentWalletConnected();
+  }, []);
 
   return (
     <>
@@ -144,34 +175,14 @@ const Header = () => {
                             }`}
                           >
                             {menuItem.title}
-                            {/* Remove the arrow icon here if it exists */}
-                            {/* <span className="pl-3">
-                              <svg width="25" height="24" viewBox="0 0 25 24">
-                                <path
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M6.29289 8.8427C6.68342 8.45217 7.31658 8.45217 7.70711 8.8427L12 13.1356L16.2929 8.8427C16.6834 8.45217 17.3166 8.45217 17.7071 8.8427C18.0976 9.23322 18.0976 9.86639 17.7071 10.2569L12 15.964L6.29289 10.2569C5.90237 9.86639 5.90237 9.23322 6.29289 8.8427Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span> */}
                           </Link>
                         ) : (
                           <p
                             onClick={() => handleSubmenu(index)}
-                             className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-primary dark:text-white/70 dark:group-hover:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
+                            className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-primary dark:text-white/70 dark:group-hover:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
                           >
                             {menuItem.title}
-                            <span className="pl-3">
-                              {/* <svg width="25" height="24" viewBox="0 0 25 24">
-                                <path
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M6.29289 8.8427C6.68342 8.45217 7.31658 8.45217 7.70711 8.8427L12 13.1356L16.2929 8.8427C16.6834 8.45217 17.3166 8.45217 17.7071 8.8427C18.0976 9.23322 18.0976 9.86639 17.7071 10.2569L12 15.964L6.29289 10.2569C5.90237 9.86639 5.90237 9.23322 6.29289 8.8427Z"
-                                  fill="currentColor"
-                                />
-                              </svg> */}
-                            </span>
+                            <span className="pl-3"></span>
                           </p>
                         )}
                       </li>
@@ -181,25 +192,25 @@ const Header = () => {
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                 {walletAddress ? (
-                  <span className="px-7 py-3 text-base font-medium text-dark dark:text-white">
-                    {walletAddress.substring(0, 6)}...
-                    {walletAddress.substring(walletAddress.length - 4)}
-                  </span>
-                ) : (
                   <>
-                    {/* <Link
-                      href="/signin"
-                      className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
-                    >
-                      Sign In
-                    </Link> */}
+                    <span className="px-7 py-3 text-base font-medium text-dark dark:text-white">
+                      {walletAddress.substring(0, 6)}...
+                      {walletAddress.substring(walletAddress.length - 4)}
+                    </span>
                     <button
-                      onClick={connectWalletHandler}
-                      className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-md bg-primary py-3 px-7 text-base font-medium text-white transition"
+                      onClick={disconnectWalletHandler}
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-md bg-red-600 py-3 px-7 text-base font-medium text-white transition"
                     >
-                      Connect Wallet
+                      Disconnect
                     </button>
                   </>
+                ) : (
+                  <button
+                    onClick={connectWalletHandler}
+                    className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-md bg-primary py-3 px-7 text-base font-medium text-white transition"
+                  >
+                    Connect Wallet
+                  </button>
                 )}
                 <ThemeToggler />
               </div>
