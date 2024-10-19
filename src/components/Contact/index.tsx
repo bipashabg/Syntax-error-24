@@ -1,21 +1,53 @@
 "use client";
 import { upload } from "@lighthouse-web3/sdk"; // Import 'upload' method correctly
 import { useEffect, useState } from "react";
+const ethers = require('ethers');
+import { AssetTokenizationABI } from '../../abis/AssetTokenizationABI';
 
 const Minter = (props) => {
   // State variables
   const [walletAddress, setWallet] = useState("");
+  const [contract, setContract] = useState(null);
   const [status, setStatus] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setURL] = useState(""); // You might need this state depending on future use.
 
-  useEffect(() => {
-    // You can include any side-effects in this useEffect
-    // Example: If you want to fetch wallet data, do it here.
-  }, []); 
-
+  const contractAddress = "0xd01661F6f1AC9F5Df7908BeD02F32603AEEc082E";
   const apiKey = "2d49449a.0394a4e240124eb691d00f861ca23d3f";
+
+  useEffect(() => {
+    // Connect to Ethereum wallet on component mount
+    connectWallet();
+  }, []);
+
+  useEffect(() => {
+    if (walletAddress && contract) {
+      // Listen for NFTMinted event
+      contract.on("NFTMinted", (tokenId, tokenURI) => {
+        console.log(`NFT Minted! ID: ${tokenId}, URI: ${tokenURI}`);
+      });
+
+      // Clean up the event listener on component unmount
+      return () => {
+        contract.off("NFTMinted");
+      };
+    }
+  }, [walletAddress, contract]);
+
+  const connectWallet = async () => {
+    try {
+      await window.ethereum.request({ method: "eth_requestAccounts" }); // Prompt user to connect their wallet
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner(); // Get the signer (the user’s wallet)
+      const address = await signer.getAddress(); // Get the wallet address
+      setWallet(address); // Update your state
+      console.log("Connected wallet address:", address);
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+      alert("Failed to connect wallet. Please check console for details.");
+    }
+  };
 
   const AssetForm = () => {
     const [assetName, setAssetName] = useState("");
@@ -39,14 +71,14 @@ const Minter = (props) => {
       console.log('File to upload:', file);
 
       try {
-        // Wrap the file in an array
+        // Upload the file to Lighthouse
         const response = await upload([file], apiKey); // Use an array here
         console.log('Upload Response:', response);
 
         if (response && response.data) {
           const fileUrl = response.data.Hash;
 
-          // Send asset details and file URL to the backend for further processing (tokenization)
+          // Prepare asset data
           const assetData = {
             assetName,
             tokenValue,
@@ -55,21 +87,22 @@ const Minter = (props) => {
             additionalInfo,
           };
 
-          console.log("Asset Data:", assetData);
-          // Add code to send assetData to the backend for tokenization
+          // Connect to Ethereum and interact with your contract
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer = provider.getSigner(); // Get the signer
+          const contract = new ethers.Contract(contractAddress, AssetTokenizationABI, signer); // Create contract instance
+
+          // Call the function to tokenize the asset
+          const tx = await contract.tokenizeAsset(assetData); // Replace 'tokenizeAsset' with your actual contract method name
+          await tx.wait(); // Wait for the transaction to be mined
 
           alert("Asset has been tokenized successfully!");
         } else {
           alert("File upload failed. Please try again.");
         }
       } catch (error) {
-        console.error("Error uploading file:", error);
-        if (error.response) {
-          console.error("Server responded with an error:", error.response.data);
-        } else {
-          console.error("Error message:", error.message);
-        }
-        alert("An error occurred while uploading the file. Please check the console for details.");
+        console.error("Error uploading file or interacting with contract:", error);
+        alert("An error occurred. Please check console for details.");
       }
     };
 
