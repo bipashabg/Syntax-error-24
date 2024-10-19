@@ -5,14 +5,14 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
-        port: "",  // You can omit this line if no port is needed
-        pathname: "/**",  // Allows all paths under the cdn.sanity.io domain
+        port: "",  
+        pathname: "/**",  
       },
       {
         protocol: "http",
         hostname: "localhost",
-        port: "3000",  // If you're using localhost during development, specify the port number
-        pathname: "/**",  // Allows all paths under localhost
+        port: "3000",  
+        pathname: "/**",  
       },
     ],
   },
